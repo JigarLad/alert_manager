@@ -1,4 +1,4 @@
-<nav search_view="search" color="#464b55">
+<nav search_view="search" color="#39424C">
   <view name="incident_posture" default='true' />
   <collection label="Reports">
     <view name="incident_overview" />
