@@ -87,10 +87,12 @@ require([
     
     // Closer
     var alert_details="#alert_details"; 
-    var closer='<div class="closer icon-x"> close</div>';
+    var closer='<div class="closer icon-x">&nbsp;</div>';
     $(alert_details).prepend(closer);
     $(alert_details).on("click", '.closer', function() {
-        $(alert_details).parent().parent().parent().hide();
+        //$(alert_details).parent().parent().parent().hide();
+        submittedTokens.unset('drilldown_incident_id', '');
+        defaultTokens.unset('drilldown_incident_id', '');
     });  
 
 
@@ -103,12 +105,12 @@ require([
             if(cell.field=="owner") {
                 if(cell.value!="unassigned") {
                     icon = 'user';
-                    $td.addClass(cell.field).addClass('icon-inline').html(_.template('<i class="icon-<%-icon%>" style="padding-right: 2px"></i><%- text %>', {
+                    $td.addClass("field_" + cell.field).addClass('icon-inline').html(_.template('<i class="icon-<%-icon%>" style="padding-right: 2px"></i><%- text %>', {
                         icon: icon,
                         text: cell.value
                     }));                
                 } else {
-                    $td.addClass(cell.field).html(cell.value);
+                    $td.addClass("field_" + cell.field).html(cell.value);
                 }
             } else {
                 if(cell.field=="dosearch") {
@@ -143,43 +145,6 @@ require([
         render: function($td, cell) {
             // ADD class to cell -> CSS
             $td.addClass("field_" + cell.field).html(cell.value);
-        }
-    });
-
-     // Row Coloring Example with custom, client-side range interpretation
-    var ColorRenderer = TableView.BaseCellRenderer.extend({
-        canRender: function(cell) {
-            // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-            return _(['priority']).contains(cell.field);
-        },
-        render: function($td, cell) {
-            // Add a class to the cell based on the returned value
-            var value = cell.value;
-            // Apply interpretation for number of historical searches
-            if (cell.field === 'priority') {
-                if (value == "informational") {
-                    $td.addClass('range-cell').addClass('range-info');
-                }
-                else if (value == "low") {
-                    $td.addClass('range-cell').addClass('range-low');
-                }
-                else if (value == "medium") {
-                    $td.addClass('range-cell').addClass('range-medium');
-                }
-                else if (value == "high") {
-                    $td.addClass('range-cell').addClass('range-high');
-                }
-                else if (value == "critical") {
-                    $td.addClass('range-cell').addClass('range-critical');
-                }
-		        else if (value == "unknown") {
-                    $td.addClass('range-cell').addClass('range-unknown');
-                }
-            }
-
-            // Update the cell content
-            //$td.text(value.toFixed(2)).addClass('numeric');
-            $td.text(value);
         }
     });
 
@@ -297,7 +262,6 @@ require([
     incidentsOverViewTable = mvc.Components.get('incident_overview');
     incidentsOverViewTable.getVisualization(function(tableView) {
         // Add custom cell renderer
-        tableView.table.addCellRenderer(new ColorRenderer());
         tableView.table.addCellRenderer(new HiddenCellRenderer());
         tableView.table.addCellRenderer(new IconRenderer());
         tableView.addRowExpansionRenderer(new IncidentDetailsExpansionRenderer());
@@ -352,10 +316,10 @@ require([
         else if (data.field=="doedit"){
             console.log("doedit catched");
             // Incident settings
-            var incident_id =   $(this).parent().find("td.incident_id").get(0).textContent;
-            var owner =    $(this).parent().find("td.owner").get(0).textContent;            
-            var urgency = $(this).parent().find("td.urgency").get(0).textContent;
-            var status =   $(this).parent().find("td.status").get(0).textContent;
+            var incident_id =   $(this).parent().find("td.field_incident_id").get(0).textContent;
+            var owner =    $(this).parent().find("td.field_owner").get(0).textContent;            
+            var urgency = $(this).parent().find("td.field_urgency").get(0).textContent;
+            var status =   $(this).parent().find("td.field_status").get(0).textContent;
 
             var edit_panel='' +
 '<div class="modal fade modal-wide shared-alertcontrols-dialogs-editdialog in" id="edit_panel">' +
