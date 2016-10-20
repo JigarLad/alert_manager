@@ -1,0 +1,56 @@
+<form>
+  <label>Alert Manager Performance</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="global_time" searchWhenChanged="true">
+      <label>Timerange:</label>
+      <default>
+        <earliest>@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Alert Manager Handler Runs</title>
+      <table>
+        <search>
+          <query>index=_internal source="*alert_manager.log" | rex "alert '(?&lt;alert&gt;[^']+)'" | stats first(alert) AS alert, earliest(_time) AS _time, latest(_time) AS endtime by pid | eval duration=endtime-_time | table _time duration pid alert | sort - _time</query>
+          <earliest>$global_time.earliest$</earliest>
+          <latest>$global_time.latest$</latest>
+          <refresh>30s</refresh>
+          <refreshType>delay</refreshType>
+        </search>
+        <option name="refresh.display">preview</option>
+        <format type="color" field="duration">
+          <colorPalette type="minMidMax" maxColor="#D6563C" minColor="#FFFFFF"></colorPalette>
+          <scale type="minMidMax"></scale>
+        </format>
+        <drilldown>
+          <set token="pid">$row.pid$</set>
+        </drilldown>
+      </table>
+    </panel>
+    <panel depends="$pid$">
+      <title>Alert Manager Handler Run Details</title>
+      <table>
+        <search>
+          <query>index=_internal source="*alert_manager.log" pid="$pid$" | sort _time | streamstats current=f window=1 global=f last(_time) AS before_time | eval before_time=if(isnull(before_time),_time,before_time) | eval gap=_time-before_time | table _time, gap, pid, message</query>
+          <earliest>$global_time.earliest$</earliest>
+          <latest>$global_time.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <format type="color" field="gap">
+          <colorPalette type="minMidMax" maxColor="#D6563C" minColor="#FFFFFF"></colorPalette>
+          <scale type="minMidMax"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>
