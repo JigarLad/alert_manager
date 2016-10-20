@@ -142,7 +142,7 @@ require([
         },
         render: function($td, cell) {
             // ADD class to cell -> CSS
-            $td.addClass(cell.field).html(cell.value);
+            $td.addClass("field_" + cell.field).html(cell.value);
         }
     });
 
