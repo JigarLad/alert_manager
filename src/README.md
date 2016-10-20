@@ -85,6 +85,9 @@ The Alert Manager adds simple incident workflows to Splunk. The general purpose 
 
 
 ## Changelog
+- **2016-10-20** simon@balz.me
+	- Improved helper endpoint and CsvLookup library to output csv data
+	- Support for dynamic status parsing in incident posture
 - **2016-10-19** simon@balz.me
 	- Fixed broken pagination in Splunk 6.5
 	- Removed inline css and js in setup.xml (Certifiaction requirement)
