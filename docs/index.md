@@ -1,5 +1,4 @@
-# Alert Manager
-
+# About the Alert Manager
 The Alert Manager adds simple incident workflows to Splunk. The general purpose is to provide a common app with dashboards in order to investigate fired alerts or notable events. It can be used with every Splunk alert and works as an extension on top of Splunk's built-in alerting mechanism.
 * Awareness of your current operational situation with the incident posture dashboard
 * Analyze root cause of incidents with only a few clicks
