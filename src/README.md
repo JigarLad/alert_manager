@@ -88,6 +88,8 @@ The Alert Manager adds simple incident workflows to Splunk. The general purpose 
 
 
 ## Changelog
+- **2016-11-04** simon@balz.me
+	- Introduced new documentation system (mkdocs + readthedocs.io)
 - **2016-10-21** simon@balz.me
 	- Fixed migration scripts to check KVStore availability
 	- Remove local.meta from distribution
