@@ -1,5 +1,9 @@
-site_name: My Docs
+site_name: Alert Manager
 pages:
     - Home: index.md
+    - Deploy and Configure: installation_manual.md
+    - User Manual: user_manual.md
+    - Release Notes: release_notes.md
+    - FAQ: faq.md
     - About: about.md
 theme: readthedocs    
