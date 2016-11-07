@@ -22,31 +22,31 @@ td.table_inline_icon {
 /* #incident_overview panel */
 
 /* Hidden Cells */
-#incident_overview .alert,
+#incident_overview .field_alert,
 #incident_overview [data\-sort\-key='alert'],
-#incident_overview .incident_id,
+#incident_overview .field_incident_id,
 #incident_overview [data\-sort\-key='incident_id'],
-#incident_overview .job_id, 
+#incident_overview .field_job_id, 
 #incident_overview [data\-sort\-key='job_id'],
-#incident_overview .result_id, 
+#incident_overview .field_result_id, 
 #incident_overview [data\-sort\-key='result_id'],
-#incident_overview .status, 
+#incident_overview .field_status, 
 #incident_overview [data\-sort\-key='status'],
-#incident_overview .search, 
+#incident_overview .field_search, 
 #incident_overview [data\-sort\-key='search'], 
-#incident_overview .event_search, 
+#incident_overview .field_event_search, 
 #incident_overview [data\-sort\-key='event_search'],
-#incident_overview .earliest, 
+#incident_overview .field_earliest, 
 #incident_overview [data\-sort\-key='earliest'],
-#incident_overview .latest,
+#incident_overview .field_latest,
 #incident_overview [data\-sort\-key='latest'],
-#incident_overview .impact, 
+#incident_overview .field_impact, 
 #incident_overview [data\-sort\-key='impact'],
-#incident_overview .urgency, 
+#incident_overview .field_urgency, 
 #incident_overview [data\-sort\-key='urgency'],
-#incident_overview .display_fields, 
+#incident_overview .field_display_fields, 
 #incident_overview [data\-sort\-key='display_fields'],
-#incident_overview .alert_time,
+#incident_overview .field_alert_time,
 #incident_overview [data\-sort\-key='alert_time'] {
   display:none;
 }
@@ -117,12 +117,13 @@ td.table_inline_icon {
 /* Closer */
 .closer {
   float: right; 
-  padding:5px;
+  padding:16px;
   line-height:10px;
   font-size:12px;
-  border: 1px solid #efefef;
+  /*border: 1px solid #efefef;*/
   cursor:pointer;
   margin-bottom: 2px;
+  margin-top: -34px;
 }
 
 

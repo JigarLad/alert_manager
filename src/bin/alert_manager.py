@@ -222,33 +222,18 @@ def getImpactFromResults(results, default_impact, incident_id):
         log.debug("No valid impact field found in results. Falling back to default_impact=%s for incident_id=%s" % (default_impact, incident_id))
         return default_impact
 
-    
-def getLookupFile(lookup_name, sessionKey):
-    uri = '/servicesNS/nobody/alert_manager/data/transforms/lookups/%s' % lookup_name
-    lookup = getRestData(uri, sessionKey)
-    #log.debug("getLookupFile(): lookup: %s" % json.dumps(lookup))
-    log.debug("Got lookup content for lookup=%s. filename=%s app=%s" % (lookup_name, lookup["entry"][0]["content"]["filename"], lookup["entry"][0]["acl"]["app"]))
-    return os.path.join(os.path.join(os.environ.get('SPLUNK_HOME')), 'etc', 'apps', lookup["entry"][0]["acl"]["app"], 'lookups', lookup["entry"][0]["content"]["filename"])
-
-
 def getPriority(impact, urgency, default_priority, sessionKey):
     log.debug("getPriority(): Try to calculate priority for impact=%s urgency=%s" % (impact, urgency))
     try:
-        csv_path = getLookupFile('alert_priority', sessionKey)
-
-        if os.path.exists(csv_path):
-            log.debug("Lookup file %s found. Proceeding..." % csv_path)
-            lookup = CsvLookup(csv_path)
-            query = { "impact": impact, "urgency": urgency }
-            log.debug("Querying lookup with filter=%s" % query)
-            matches = lookup.lookup(query, { "priority" })
-            if len(matches) > 0:
-                log.debug("Matched priority in lookup, returning value=%s" % matches["priority"])
-                return matches["priority"]
-            else:
-                log.debug("No matching priority found in lookup, falling back to default_priority=%s" % (config['default_priority']))
+        lookup = CsvLookup(lookup_name="alert_priority", sessionKey = sessionKey)
+        query = { "impact": impact, "urgency": urgency }
+        log.debug("Querying lookup with filter=%s" % query)
+        matches = lookup.lookup(query, { "priority" })
+        if len(matches) > 0:
+            log.debug("Matched priority in lookup, returning value=%s" % matches["priority"])
+            return matches["priority"]
         else:
-            log.warn("Lookup file %s not found. Falling back to default_priority=%s" % (csv_path, config['default_priority']))
+            log.debug("No matching priority found in lookup, falling back to default_priority=%s" % (config['default_priority']))
 
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()

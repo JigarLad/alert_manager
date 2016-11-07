@@ -28,6 +28,7 @@ if not dir in sys.path:
 
 from AlertManagerUsers import *
 from AlertManagerLogger import *
+from CsvLookup import *
 
 logger = setupLogger('controllers')
 
@@ -156,3 +157,13 @@ class Helpers(controllers.BaseController):
             return savedSearchContent["entry"][0]["content"]["description"]
         else:
             return ""
+
+    @expose_page(must_login=True, methods=['GET']) 
+    def get_lookup_content(self, lookup_name, **kwargs):
+        logger.info("Get lookup content")
+
+        sessionKey = cherrypy.session.get('sessionKey')
+
+        lookup = CsvLookup(lookup_name = lookup_name, sessionKey = sessionKey)
+
+        return json.dumps(lookup.getData())
