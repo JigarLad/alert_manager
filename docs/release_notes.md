@@ -1,4 +1,6 @@
 # Release Notes
+- **v2.1.4**/   2016-11-07
+    - Fixed disabled migration scripts for fresh installations
 - **v2.1.3**/   2016-10-21
     - Fixed migration scripts to check KVStore availability
     - Remove local.meta from distribution
