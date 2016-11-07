@@ -72,8 +72,3 @@ We recommend to use the App settings page, as there will be a configuration vali
 * Have a look at `$SPLUNK_HOME/etc/apps/alert_manager/README/alert_manager.conf.spec` for full configuration reference
 * Set `is_configured` to the value "1" (without quotes) in `$SPLUNK_HOME/etc/apps/alert_manager/local/app.conf` inside the `[install]` stanza to hide the App's setup page in case you configured the App with the config file
 
-
-# Configure Alerts
-# Configure Users
-# Configure E-Mail Notifications
-# Configure Supressions
