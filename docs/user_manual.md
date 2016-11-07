@@ -3,7 +3,7 @@
 # Custom Search Commands
 
 ### loadincidentresults 
-**Usage**: ```<your search> | table _time incident_id | loadincidentresults incident_id``
+**Usage**: ```<your search> | table _time incident_id | loadincidentresults incident_id```
 
 **Parameters:**
 
@@ -14,7 +14,7 @@ Returns results of incidents from the KV store given a list of incidents having 
 ### modifyincidents 
 
 **Usage**:
-```<your search> | table _time incident_id | modifyincidents status=<new status> owner=<new owner> urgency=<new urgency> comment=<comment>``
+```<your search> | table _time incident_id | modifyincidents status=<new status> owner=<new owner> urgency=<new urgency> comment=<comment>```
 
 **Parameters:**
 
