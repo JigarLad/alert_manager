@@ -90,7 +90,7 @@ if __name__ == "__main__":
     # Get global settings
     #
     config = {}
-    config['index'] = 'alerts'
+    config['index'] = 'main'
     config['default_impact'] = 'low'
 
     restconfig = entity.getEntities('configs/alert_manager', count=-1, sessionKey=sessionKey)
